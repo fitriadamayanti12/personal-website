@@ -7,7 +7,14 @@ export default function Home() {
       {/* Profile Section */}
       <div className="flex flex-col items-center text-center">
         <div className="w-32 h-32 rounded-full bg-gray-200 mb-6 overflow-hidden">
-          {/* <Image src="/images/profile.jpg" alt="Fitria" width={128} height={128} /> */}
+          <Image 
+            src="/images/profile.jpg" 
+            alt="Fitria Damayanti"
+            width={128}
+            height={128}
+            className="object-cover w-full h-full"
+            priority
+          />
         </div>
         
         <h1 className="text-4xl font-bold mb-2">
@@ -23,7 +30,6 @@ export default function Home() {
           Currently balancing tech, family, and preparing for civil service exams.
         </p>
 
-        {/* CTA Buttons */}
         <div className="flex gap-4">
           <Link 
             href="/projects"
