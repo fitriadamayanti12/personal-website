@@ -22,12 +22,13 @@ export default function Home() {
         </h1>
         
         <p className="text-xl text-gray-600 mb-4">
-          S2 Information Technology | UGM
+          Software Developer | Security Specialist | UGM M.Eng Graduate
         </p>
         
         <p className="text-gray-700 mb-8 max-w-md">
-          I build web applications and care about digital literacy. 
-          Currently balancing tech, family, and preparing for civil service exams.
+            I've built software and secured systems. But my biggest dream? 
+            A reading house in my village and scholarships for children who deserve a chance. 
+            Because the most important code I can write is the one that opens doors for others.
         </p>
 
         <div className="flex gap-4">

@@ -4,7 +4,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-50 border-t mt-16">
+    <footer className="bg-gray-50 border-t mt-18">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           {/* Copyright */}
@@ -15,7 +15,7 @@ export default function Footer() {
           {/* Social Links */}
           <div className="flex gap-6">
             <a
-              href="https://github.com/fitria"
+              href="https://github.com/fitriadamayanti12"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-gray-700 transition"
@@ -24,7 +24,7 @@ export default function Footer() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/fitria"
+              href="https://www.linkedin.com/in/fitria-damayanti-8a484b139/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-gray-700 transition"
