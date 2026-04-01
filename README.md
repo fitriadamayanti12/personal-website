@@ -2,7 +2,7 @@
 
 My personal portfolio and blog built with Next.js, TypeScript, Tailwind CSS, and Supabase.
 
-🔗 **Live Site:** [fitria.vercel.app](https://fitria.vercel.app)
+🔗 **Live Site:** [fitria.vercel.app](https://personal-website-nine-lilac-87.vercel.app/)
 
 ---
 
@@ -56,7 +56,9 @@ Blog posts are stored in Supabase with the following schema:
 Create a `.env.local` file:
 
 ``env
+
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key``
 
 ---
