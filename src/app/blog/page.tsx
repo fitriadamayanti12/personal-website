@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
+export const dynamic = 'force-dynamic';
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);

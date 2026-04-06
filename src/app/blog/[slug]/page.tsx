@@ -42,10 +42,11 @@ export default async function BlogPostPage({
         <p className="text-gray-500 text-sm mb-8">
           {formatDate(post.created_at)}
         </p>
-        <div className="prose prose-gray max-w-none">
-          <p>{post.content}</p>
-        </div>
+        <div
+          className="prose prose-gray max-w-none"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
       </article>
-    </main>
+    </main >
   );
 }

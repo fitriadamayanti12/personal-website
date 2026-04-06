@@ -55,11 +55,11 @@ Blog posts are stored in Supabase with the following schema:
 ### Environment Variables
 Create a `.env.local` file:
 
-``env
+```env```
 
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key``
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 
 ---
 
