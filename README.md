@@ -2,7 +2,7 @@
 
 My personal portfolio and blog built with Next.js, TypeScript, Tailwind CSS, and Supabase.
 
-🔗 **Live Site:** [fitria.vercel.app](https://personal-website-nine-lilac-87.vercel.app/)
+🔗 **Live Site:** [personal-website.app](https://personal-website-nine-lilac-87.vercel.app/)
 
 ---
 

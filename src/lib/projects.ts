@@ -15,6 +15,8 @@ export const projects: Project[] = [
     title: 'Health Tracker for Mom',
     description: 'Simple app to track blood sugar, medication schedule, and doctor appointments.',
     tech: ['React', 'TypeScript', 'LocalStorage'],
+    link: 'https://health-tracker-eta-two.vercel.app/',
+    github: 'https://github.com/fitriadamayanti12/health-tracker',
     featured: false
   },
   {
