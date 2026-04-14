@@ -6,7 +6,7 @@ export const projects: Project[] = [
     title: 'Health Tracker for Mom',
     description: 'Aplikasi pencatat kesehatan untuk memantau gula darah, tekanan darah, dan gejala harian. Dilengkapi dengan grafik tren, export PDF, dan pengingat jadwal cek.',
     tech: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind', 'Recharts'],
-    link: 'https://health-tracker-eta-two.vercel.app',
+    link: 'https://health-tracker-eta-two.vercel.app/',
     github: 'https://github.com/fitriadamayanti12/health-tracker',
     featured: true
   },
@@ -15,7 +15,7 @@ export const projects: Project[] = [
     title: 'PagePulse',
     description: 'Reading tracker dengan timer baca, target bulanan, statistik, prestasi, review buku, dan forum diskusi.',
     tech: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind', 'Lucide'],
-    link: 'https://pagepulse-chi.vercel.app',
+    link: 'https://pagepulse-chi.vercel.app/',
     github: 'https://github.com/fitriadamayanti12/pagepulse',
     featured: true
   },
@@ -34,6 +34,23 @@ export const projects: Project[] = [
     tech: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase'],
     link: 'https://personal-website-nine-lilac-87.vercel.app/',
     github: 'https://github.com/fitriadamayanti12/personal-website',
+    featured: true
+  },
+  {
+    id: '5',
+    title: 'Kid Arcade',
+    description: 'Platform game edukasi untuk anak usia 6+ dengan 7 game seru, sistem reward, leaderboard, dan AI Game Generator. Dibangun dengan Next.js, TypeScript, Tailwind, dan Supabase.',
+    tech: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase'],
+    link: 'https://kid-arcade.vercel.app/',
+    github: 'https://github.com/fitriadamayanti12/kid-arcade',
+    featured: true
+  },
+  {
+    id: '6',
+    title: 'Next Generation Bimbel',
+    description: 'Platform bimbingan belajar online profesional dengan sistem manajemen admin lengkap. Fitur unggulan: pendaftaran siswa, konsultasi online, manajemen pengajar, dashboard admin real-time, dan form interaktif. Dibangun untuk membantu siswa mencapai potensi terbaik mereka.',
+    tech: ['Next.js 15", "TypeScript", "Tailwind CSS", "Supabase", "shadcn/ui'],
+    link: 'https://next-generation-bimbel.vercel.app/',
     featured: true
   }
 ];
