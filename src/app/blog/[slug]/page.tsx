@@ -1,41 +1,45 @@
-import { supabase } from '@/lib/supabase';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { Calendar, User, Clock, ArrowLeft, Share2, Bookmark } from 'lucide-react';
+import { createClient } from '@/lib/supabase/server'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import { Calendar, Clock, ArrowLeft } from 'lucide-react'
+import BlogActions from '@/components/BlogActions'  // Import client component
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'
 
 function formatDate(dateString: string): string {
-  const date = new Date(dateString);
+  const date = new Date(dateString)
   return new Intl.DateTimeFormat('en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-  }).format(date);
+  }).format(date)
 }
 
 function getReadingTime(content: string): number {
-  const wordsPerMinute = 200;
-  const words = content.split(/\s/g).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
-  return minutes;
+  const wordsPerMinute = 200
+  const words = content.split(/\s/g).length
+  const minutes = Math.ceil(words / wordsPerMinute)
+  return minutes
 }
 
 export default async function BlogPostPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }) {
-  const { slug } = await params;
+  const { slug } = await params
+  const supabase = await createClient()
 
+  // Fetch published post by slug
   const { data: post, error } = await supabase
     .from('posts')
     .select('*')
     .eq('slug', slug)
-    .single();
+    .eq('published', true)
+    .single()
 
   if (error || !post) {
-    notFound();
+    notFound()
   }
 
   return (
@@ -76,6 +80,17 @@ export default async function BlogPostPage({
             </span>
           </div>
 
+          {/* Cover Image */}
+          {post.cover_image && (
+            <div className="mb-8 rounded-lg overflow-hidden">
+              <img 
+                src={post.cover_image} 
+                alt={post.title}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          )}
+
           {/* Article Content */}
           <div 
             className="prose prose-lg prose-blue max-w-none
@@ -90,20 +105,16 @@ export default async function BlogPostPage({
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
-          {/* Divider */}
+          {/* Divider with Client Component */}
           <div className="my-8 pt-6 border-t">
             <div className="flex flex-wrap justify-between items-center gap-4">
               <p className="text-sm text-gray-500">
                 Published on {formatDate(post.created_at)}
               </p>
-              <div className="flex gap-2">
-                <button className="p-2 text-gray-400 hover:text-gray-600 transition rounded-lg hover:bg-gray-100">
-                  <Share2 className="w-4 h-4" />
-                </button>
-                <button className="p-2 text-gray-400 hover:text-gray-600 transition rounded-lg hover:bg-gray-100">
-                  <Bookmark className="w-4 h-4" />
-                </button>
-              </div>
+              <BlogActions 
+                title={post.title} 
+                url={`/blog/${post.slug}`}
+              />
             </div>
           </div>
         </div>
@@ -112,15 +123,15 @@ export default async function BlogPostPage({
         <div className="mt-8 bg-gray-50 rounded-xl border p-6">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
-              F
+              FD
             </div>
             <div className="flex-1">
               <h3 className="font-semibold text-gray-800 mb-1">Fitria Damayanti</h3>
               <p className="text-sm text-gray-500 mb-3">
-                Software Developer & Security Specialist | S2 UGM
+                Software Developer & Security Specialist
               </p>
               <p className="text-sm text-gray-600">
-                Passionate about building secure applications and creating social impact through education.
+                Passionate about building secure applications and creating social impact through technology.
               </p>
             </div>
           </div>
@@ -138,5 +149,5 @@ export default async function BlogPostPage({
         </div>
       </div>
     </div>
-  );
+  )
 }
