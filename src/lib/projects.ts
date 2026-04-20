@@ -47,6 +47,15 @@ export const projects: Project[] = [
   },
   {
     id: '6',
+    title: 'Math Quest Arena',
+    description: 'Game edukasi matematika berbasis RPG untuk anak SD-SMP dengan mode Battle (combo system), Adventure (explore map & battle monster), Daily Challenge, Leaderboard ELO, Shop system, dan Daily Streak. Dibangun dengan Next.js 15, TypeScript, Tailwind CSS 4, dan Supabase.',
+    tech: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase'],
+    link: 'https://math-quest-arena-topaz.vercel.app/',
+    github: 'https://github.com/fitriadamayanti12/math-quest-arena',
+    featured: true
+  },
+  {
+    id: '7',
     title: 'Next Generation Bimbel',
     description: 'Platform bimbingan belajar online profesional dengan sistem manajemen admin lengkap. Fitur unggulan: pendaftaran siswa, konsultasi online, manajemen pengajar, dashboard admin real-time, dan form interaktif. Dibangun untuk membantu siswa mencapai potensi terbaik mereka.',
     tech: ['Next.js 15", "TypeScript", "Tailwind CSS", "Supabase", "shadcn/ui'],

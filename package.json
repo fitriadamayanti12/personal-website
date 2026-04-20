@@ -24,7 +24,21 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.2.2",
     "typescript": "^5"
-  }
+  },
+  "description": "My personal portfolio and blog built with Next.js, TypeScript, Tailwind CSS, and Supabase.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fitriadamayanti12/personal-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/fitriadamayanti12/personal-website/issues"
+  },
+  "homepage": "https://github.com/fitriadamayanti12/personal-website#readme"
 }
