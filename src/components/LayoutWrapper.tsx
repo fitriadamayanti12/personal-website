@@ -11,20 +11,17 @@ export default function LayoutWrapper({
 }) {
   const pathname = usePathname();
   
-  // Cek apakah sedang di halaman admin
   const isAdminRoute = pathname?.startsWith('/admin');
+  
+  console.log('LayoutWrapper rendered, isAdminRoute:', isAdminRoute); // ← TAMBAHKAN INI
+  console.log('Current pathname:', pathname); // ← TAMBAHKAN INI
   
   return (
     <>
-      {/* Navbar - Hanya tampil jika BUKAN di route admin */}
       {!isAdminRoute && <Navbar />}
-      
-      {/* Main content */}
       <main className="flex-1">
         {children}
       </main>
-      
-      {/* Footer - Hanya tampil jika BUKAN di route admin */}
       {!isAdminRoute && <Footer />}
     </>
   );
