@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
-import { Star, Sparkles, ExternalLink, ArrowRight, Eye, Globe, Clock, Zap, Heart } from 'lucide-react';
+import { Star, Sparkles, ExternalLink, ArrowRight, Eye, Globe, Clock, Zap, Heart, MessageCircle } from 'lucide-react';
 
 const projects = [
   {
@@ -17,8 +17,8 @@ const projects = [
     color2: '#a855f7',
     featured: true,
     live: 'https://next-generation-bimbel.vercel.app',
-    github: 'https://github.com/fitriadamayanti12/next-generation-bimbel',
-    isPrivate: false,
+    github: '',
+    isPrivate: true,
     icon: '🎓',
   },
   {
@@ -326,9 +326,13 @@ export default function Projects() {
           <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/10 rounded-full blur-3xl translate-y-32 -translate-x-32"></div>
           
           <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-24 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-6 border border-white/20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-3 border border-white/20">
               <Sparkles className="w-4 h-4" />
               Portfolio Highlights
+            </div>
+            <br />
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-400/30 backdrop-blur-sm text-white text-sm font-medium mb-6 border border-green-300/30">
+              🛠️ Available for freelance & collaboration
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Proyek Terbaik Saya</h1>
             <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
@@ -353,7 +357,7 @@ export default function Projects() {
 
       <div className="max-w-6xl mx-auto px-4 py-16">
         
-        {/* Tab Filter - LARGER */}
+        {/* Tab Filter */}
         <div className="flex flex-wrap justify-center gap-3 mb-6">
           {tabs.map((t) => (
             <button
@@ -372,7 +376,7 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Tech Stack Filter - LARGER */}
+        {/* Tech Stack Filter */}
         {availableTechs.length > 0 && (
           <div className="flex flex-wrap justify-center gap-2 mb-12">
             <button
@@ -464,7 +468,7 @@ export default function Projects() {
                       <div className="absolute bottom-3 right-3 text-3xl font-bold text-purple-300/30">0{idx + 1}</div>
                     </div>
                     
-                    {/* Content - LARGER FONTS */}
+                    {/* Content */}
                     <div className="p-6">
                       <div className="text-4xl mb-4">{project.icon}</div>
                       <h3 className="font-bold text-gray-800 mb-1.5 text-2xl group-hover:text-transparent group-hover:bg-clip-text transition-all duration-300"
@@ -474,7 +478,7 @@ export default function Projects() {
                       <p className="text-base font-semibold mb-3" style={{ color: project.color1 }}>{project.subtitle}</p>
                       <p className="text-gray-600 text-base mb-5 leading-relaxed line-clamp-3">{project.description}</p>
                       
-                      {/* Tags - LARGER */}
+                      {/* Tags */}
                       <div className="flex flex-wrap gap-2 mb-5">
                         {project.tags.map((tag) => (
                           <button
@@ -487,6 +491,7 @@ export default function Projects() {
                         ))}
                       </div>
                       
+                      {/* Action Row */}
                       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                         {project.isComingSoon ? (
                           <span className="inline-flex items-center gap-1.5 text-base text-purple-600 font-semibold">
@@ -506,6 +511,16 @@ export default function Projects() {
                           <span className="text-sm text-gray-400">{project.isComingSoon ? '🔮' : 'Private'}</span>
                         )}
                       </div>
+
+                      {/* CTA - Tertarik? */}
+                      {!project.isComingSoon && (
+                        <div className="mt-3 pt-3 border-t border-gray-100">
+                          <Link href="/contact" className="inline-flex items-center gap-1.5 text-sm font-semibold text-pink-500 hover:text-pink-600 transition-colors group/cta">
+                            💡 Tertarik bikin project serupa?
+                            <ArrowRight className="w-3.5 h-3.5 group-hover/cta:translate-x-1 transition-transform" />
+                          </Link>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -526,7 +541,7 @@ export default function Projects() {
           )}
         </section>
 
-        {/* CTA */}
+        {/* CTA - Direct & Menjual */}
         <section id="cta-section" ref={(el) => { sectionRefs.current[1] = el; }} className={`scroll-reveal mt-16 ${isRevealed('cta-section') ? 'visible' : ''}`}>
           <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-10 md:p-14 text-center text-white shadow-2xl">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-32 translate-x-32"></div>
@@ -534,17 +549,19 @@ export default function Projects() {
             
             <div className="relative z-10">
               <div className="text-5xl mb-4">🚀</div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">Punya Ide Keren?</h2>
-              <p className="text-blue-100 mb-6 max-w-md mx-auto text-base">
-                Saya selalu terbuka untuk kolaborasi, diskusi proyek, atau sekadar bertukar ide.
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">Mau Bikin Aplikasi Seperti Ini?</h2>
+              <p className="text-blue-100 mb-6 max-w-lg mx-auto text-base leading-relaxed">
+                Yuk diskusi gratis! Saya siap bantu wujudkan aplikasi impianmu dengan teknologi terkini. 
+                Dari website, platform edukasi, sampai aplikasi berbasis AI.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
-                <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group">
-                  Mulai Kolaborasi
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 group">
+                  <MessageCircle className="w-5 h-5" />
+                  Diskusi Gratis Sekarang
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <a href="https://github.com/fitriadamayanti12" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 hover:-translate-y-0.5">
-                  <GitHubIcon className="w-4 h-4" />
+                <a href="https://github.com/fitriadamayanti12" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 hover:-translate-y-0.5">
+                  <GitHubIcon className="w-5 h-5" />
                   GitHub
                 </a>
               </div>

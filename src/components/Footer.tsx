@@ -22,7 +22,7 @@ export default function Footer() {
 
   return (
     <footer className="relative w-full bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 text-white border-t border-white/10 overflow-hidden">
-      
+
       {/* Subtle background particles */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
         <div className="absolute w-1 h-1 rounded-full bg-purple-300/50" style={{ left: '10%', top: '20%', animation: 'footerFloat 8s ease-in-out 0s infinite' }} />
@@ -43,10 +43,10 @@ export default function Footer() {
       `}</style>
 
       <div className="max-w-6xl mx-auto px-6 py-14 relative z-10">
-        
+
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
-          
+
           {/* Brand Section */}
           <div className="col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
@@ -179,14 +179,14 @@ export default function Footer() {
             © {currentYear} Fitria Damayanti. Dibuat dengan{' '}
             <Heart className="w-3.5 h-3.5 text-pink-400 inline-block animate-pulse" /> untuk dampak yang lebih baik
           </p>
-          
+
           <div className="flex items-center gap-2 text-purple-200/60 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-white/5">
             <Coffee className="w-4 h-4" />
             <p className="text-xs">
               Memilih keluarga bukanlah langkah mundur — melainkan fondasi.
             </p>
           </div>
-          
+
           <div className="flex gap-1.5">
             {['Next.js', 'TypeScript', 'Tailwind'].map((tech) => (
               <span key={tech} className="text-[10px] px-2.5 py-1 bg-white/5 backdrop-blur-sm rounded-full text-purple-200/60 hover:text-white hover:bg-white/10 transition-all duration-300 cursor-default border border-white/5">
@@ -198,14 +198,15 @@ export default function Footer() {
       </div>
 
       {/* Scroll to Top Button */}
+      {/* Scroll to Top - Soft Glassmorphism */}
+      {/* Scroll to Top - Solid White Circle */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 z-50 p-3 bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-full shadow-lg hover:shadow-xl hover:bg-white/20 hover:scale-110 transition-all duration-300 ${
-          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}
+        className={`fixed bottom-6 right-6 z-40 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200 text-purple-500 flex items-center justify-center hover:shadow-xl hover:border-purple-200 hover:text-purple-600 hover:scale-110 transition-all duration-300 ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+          }`}
         aria-label="Kembali ke atas"
       >
-        <ArrowUp className="w-4 h-4" />
+        <ArrowUp className="w-5 h-5" />
       </button>
     </footer>
   );
