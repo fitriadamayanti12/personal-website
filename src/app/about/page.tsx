@@ -1,10 +1,26 @@
 'use client';
 
-import { Skill } from '@/components/types';
-import { Award, Code, Heart, Shield, BookOpen, Target, Clock, Users, Sparkles, GraduationCap, Briefcase, MapPin, Calendar, ExternalLink, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { useState, useEffect, useRef } from 'react';
+import {
+  Code,
+  Shield,
+  Heart,
+  BookOpen,
+  Target,
+  Users,
+  Sparkles,
+  GraduationCap,
+  Briefcase,
+  MapPin,
+  Calendar,
+  ChevronRight,
+  ArrowRight,
+  Clock,
+  Globe,
+} from 'lucide-react';
 
-const skills: Skill[] = [
+const skills = [
   { name: 'React', category: 'frontend' },
   { name: 'Next.js', category: 'frontend' },
   { name: 'TypeScript', category: 'frontend' },
@@ -14,7 +30,6 @@ const skills: Skill[] = [
   { name: 'Cybersecurity', category: 'security' },
   { name: 'SQL', category: 'backend' },
   { name: 'Vue.js', category: 'frontend' },
-  { name: 'Angular', category: 'frontend' },
   { name: 'Docker', category: 'tools' },
   { name: 'AWS', category: 'tools' },
 ];
@@ -23,399 +38,437 @@ const education = [
   {
     degree: "Master of Information Technology (M.Eng)",
     field: "Network & Cyber Security",
-    institution: "Gadjah Mada University (UGM)",
+    institution: "Universitas Gadjah Mada (UGM)",
     location: "Yogyakarta",
     period: "Feb 2023 - Jul 2025",
     gpa: "3.44",
   },
   {
     degree: "Bachelor of Information Systems (S.Kom)",
-    institution: "Metamedia University",
+    institution: "Universitas Metamedia",
     location: "Padang",
     period: "Sep 2015 - Mar 2019",
     gpa: "3.96",
   }
 ];
 
+const experiences = [
+  {
+    icon: Code,
+    title: "Software Engineer",
+    subtitle: "4+ tahun pengalaman",
+    description: "Full-stack development menggunakan React, Next.js, TypeScript, dan framework modern untuk membangun aplikasi web berskala.",
+    gradient: "from-blue-500 to-cyan-500",
+    color: '#3b82f6',
+  },
+  {
+    icon: Shield,
+    title: "Security Engineer",
+    subtitle: "Blue Team Specialist",
+    description: "Security monitoring, threat detection, dan implementasi secure coding practices untuk pengembangan software yang aman.",
+    gradient: "from-purple-500 to-pink-500",
+    color: '#8b5cf6',
+  },
+  {
+    icon: BookOpen,
+    title: "Tech Educator",
+    subtitle: "Programming & Security Instructor",
+    description: "Mengajar coding dan cybersecurity, membantu siswa membangun fondasi yang kuat di bidang teknologi.",
+    gradient: "from-emerald-500 to-teal-500",
+    color: '#10b981',
+  },
+  {
+    icon: Globe,
+    title: "Remote Work Expert",
+    subtitle: "4+ tahun remote",
+    description: "Pengalaman bekerja dalam tim terdistribusi lintas zona waktu dan budaya dengan komunikasi yang efektif.",
+    gradient: "from-amber-500 to-orange-500",
+    color: '#f59e0b',
+  }
+];
+
+const funFacts = [
+  { icon: Clock, value: "5+", label: "Tahun Pengalaman", color: '#3b82f6' },
+  { icon: Users, value: "65+", label: "Peserta Didampingi", color: '#10b981' },
+  { icon: GraduationCap, value: "M.Eng", label: "Gelar Master", color: '#8b5cf6' },
+  { icon: Shield, value: "Blue Team", label: "Security Expert", color: '#f43f5e' },
+];
+
 export default function About() {
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const [scrollReveal, setScrollReveal] = useState<Set<string>>(new Set());
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setScrollReveal((prev) => new Set([...prev, entry.target.id]));
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -20px 0px' }
+    );
+
+    const refs = sectionRefs.current;
+    refs.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      refs.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, []);
+
+  const isRevealed = (id: string) => scrollReveal.has(id);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
-      {/* Hero Section with Parallax Effect */}
-      <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-48 translate-x-48"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-y-48 -translate-x-48"></div>
-        
-        <div className="relative max-w-6xl mx-auto px-4 py-20 md:py-28 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-6">
-            <Sparkles className="w-4 h-4" />
-            Get to know me
-          </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 animate-fade-in">
-            About Me
-          </h1>
-          <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto animate-slide-up">
-            Software Developer, Security Specialist, and Lifelong Learner
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 overflow-hidden">
+      <style jsx>{`
+        @keyframes floatOrb {
+          0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+          50% { transform: translate(15px, -20px) scale(1.05); opacity: 0.6; }
+        }
+        .scroll-reveal {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .scroll-reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
+
+      {/* Mouse Follower */}
+      <div 
+        className="fixed pointer-events-none z-50"
+        style={{
+          left: mousePos.x - 200,
+          top: mousePos.y - 200,
+          transition: 'left 1s ease-out, top 1s ease-out',
+        }}
+      >
+        <div 
+          className="w-[400px] h-[400px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(59,130,246,0.04) 0%, rgba(139,92,246,0.02) 40%, transparent 70%)',
+            opacity: mousePos.x > 0 ? 1 : 0,
+          }}
+        />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        {/* My Journey - Featured Story */}
-        <div className="mb-20">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl shadow-lg">
-              <Heart className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold text-gray-800">My Journey</h2>
-              <p className="text-gray-500 mt-1">The story behind the code</p>
-            </div>
-          </div>
+      {/* Background Orbs */}
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-10">
+        <div className="absolute top-[-200px] right-[-100px] w-[500px] h-[500px] rounded-full bg-blue-400/10 blur-[120px]"
+          style={{ animation: 'floatOrb 8s ease-in-out 0s infinite' }} />
+        <div className="absolute bottom-[-150px] left-[-100px] w-[400px] h-[400px] rounded-full bg-purple-400/10 blur-[120px]"
+          style={{ animation: 'floatOrb 8s ease-in-out 4s infinite' }} />
+      </div>
+
+      {/* Hero */}
+      <section className="relative border-b border-gray-100/50">
+        <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white overflow-hidden">
+          <div className="absolute inset-0 bg-black/10"></div>
+          <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full blur-3xl -translate-y-32 translate-x-32"></div>
+          <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/10 rounded-full blur-3xl translate-y-32 -translate-x-32"></div>
           
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-100">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <GraduationCap className="w-6 h-6 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Master's Degree</p>
-                  <p className="font-semibold text-gray-800">UGM - Cybersecurity</p>
-                </div>
-              </div>
-              <p className="text-gray-700 leading-relaxed">
-                After completing my Master's in Information Technology at UGM with a concentration in 
-                Network and Cybersecurity, I made a choice that changed my life: I returned to my 
-                hometown to care for my mother who has diabetes.
-              </p>
+          <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-24 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-6 border border-white/20">
+              <Sparkles className="w-4 h-4" />
+              Lebih dekat dengan saya
             </div>
-
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl shadow-lg p-8 border border-purple-100">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Heart className="w-6 h-6 text-purple-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Life Choice</p>
-                  <p className="font-semibold text-gray-800">Family First</p>
-                </div>
-              </div>
-              <p className="text-gray-700 leading-relaxed">
-                Some said I was falling behind in my career. But I believe that caring for family 
-                is not a delay—it's a foundation. This decision taught me patience, resilience, 
-                and the true meaning of priorities.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-6 bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-            <p className="text-gray-700 leading-relaxed text-center text-lg">
-              Today, I continue to build my skills in software development and cybersecurity 
-              while preparing for new opportunities and sharing what I learn through content 
-              and community engagement.
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+              Tentang Saya
+            </h1>
+            <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
+              Software Developer, Security Specialist, dan Lifelong Learner
             </p>
           </div>
         </div>
+      </section>
 
-        {/* Professional Experience with Timeline */}
-        <div className="mb-20">
+      <div className="max-w-6xl mx-auto px-4 py-16">
+        
+        {/* My Journey */}
+        <section
+          id="journey-section"
+          ref={(el) => { sectionRefs.current[0] = el; }}
+          className={`scroll-reveal mb-20 ${isRevealed('journey-section') ? 'visible' : ''}`}
+        >
           <div className="flex items-center gap-3 mb-8">
-            <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg">
-              <Briefcase className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shadow-sm">
+              <Heart className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-gray-800">Professional Experience</h2>
-              <p className="text-gray-500 mt-1">What I bring to the table</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Perjalanan Saya</h2>
+              <p className="text-gray-500 mt-1">Cerita di balik kode</p>
+            </div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-5">
+            <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
+                  <GraduationCap className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Gelar Master</p>
+                  <p className="font-semibold text-gray-800">UGM - Cybersecurity</p>
+                </div>
+              </div>
+              <p className="text-gray-600 leading-relaxed">
+                Setelah menyelesaikan Master of Information Technology di UGM dengan konsentrasi 
+                Network dan Cybersecurity, saya membuat pilihan yang mengubah hidup: kembali ke 
+                kampung halaman untuk merawat ibu saya yang menderita diabetes.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-purple-100"
+              style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.03), rgba(236,72,153,0.03))' }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center">
+                  <Heart className="w-5 h-5 text-purple-600" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Pilihan Hidup</p>
+                  <p className="font-semibold text-gray-800">Family First</p>
+                </div>
+              </div>
+              <p className="text-gray-600 leading-relaxed">
+                Beberapa orang berkata saya tertinggal dalam karir. Namun saya percaya bahwa 
+                merawat keluarga bukanlah kemunduran—melainkan fondasi. Keputusan ini mengajarkan 
+                saya kesabaran, ketahanan, dan makna prioritas yang sesungguhnya.
+              </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                icon: Code,
-                title: "Software Engineer",
-                years: "4+ years",
-                description: "Full-stack development across frontend and backend, building scalable web applications with modern frameworks and technologies.",
-                gradient: "from-blue-500 to-cyan-500",
-                bgLight: "bg-blue-50"
-              },
-              {
-                icon: Shield,
-                title: "Security Engineer",
-                years: "Blue Team Experience",
-                description: "Security monitoring, threat detection, and implementing best practices for secure software development.",
-                gradient: "from-purple-500 to-pink-500",
-                bgLight: "bg-purple-50"
-              },
-              {
-                icon: BookOpen,
-                title: "Tech Educator",
-                years: "Programming & Security Instructor",
-                description: "Teaching coding and cybersecurity concepts, helping students build strong foundations in technology.",
-                gradient: "from-emerald-500 to-teal-500",
-                bgLight: "bg-emerald-50"
-              },
-              {
-                icon: MapPin,
-                title: "Remote Work Expert",
-                years: "4+ years remote",
-                description: "Proven track record of working effectively in distributed teams across different time zones and cultures.",
-                gradient: "from-orange-500 to-red-500",
-                bgLight: "bg-orange-50"
-              }
-            ].map((exp, idx) => (
+          <div className="mt-5 bg-white rounded-2xl shadow-md p-6 border border-gray-100 text-center">
+            <p className="text-gray-600 leading-relaxed">
+              Hari ini, saya terus membangun skills di software development dan cybersecurity 
+              sambil mempersiapkan peluang baru dan berbagi pengetahuan melalui konten 
+              serta keterlibatan komunitas.
+            </p>
+          </div>
+        </section>
+
+        {/* Professional Experience */}
+        <section
+          id="experience-section"
+          ref={(el) => { sectionRefs.current[1] = el; }}
+          className={`scroll-reveal mb-20 border-t border-gray-100/50 pt-16 ${isRevealed('experience-section') ? 'visible' : ''}`}
+        >
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center shadow-sm">
+              <Briefcase className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Pengalaman Profesional</h2>
+              <p className="text-gray-500 mt-1">Keahlian yang saya bawa</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {experiences.map((exp, idx) => (
               <div
                 key={idx}
-                className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1"
+                className="group bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden hover:-translate-y-1 border border-gray-100"
+                style={{ transitionDelay: `${idx * 0.1}s` }}
               >
-                <div className={`h-1 bg-gradient-to-r ${exp.gradient}`}></div>
-                <div className="p-6">
-                  <div className={`w-14 h-14 ${exp.bgLight} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <exp.icon className={`w-7 h-7 text-${exp.gradient.split(' ')[1].replace('-500', '-600')}`} />
+                <div className={`h-1.5 bg-gradient-to-r ${exp.gradient}`}></div>
+                <div className="p-5">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-105 transition-transform duration-300"
+                    style={{ background: `${exp.color}10` }}>
+                    <exp.icon className="w-6 h-6" style={{ color: exp.color }} />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-1">{exp.title}</h3>
-                  <p className="text-sm text-gray-500 mb-3">{exp.years}</p>
-                  <p className="text-gray-600 text-sm leading-relaxed">{exp.description}</p>
+                  <h3 className="font-bold text-gray-800 mb-1 text-lg">{exp.title}</h3>
+                  <p className="text-sm text-gray-500 mb-2">{exp.subtitle}</p>
+                  <p className="text-gray-600 leading-relaxed">{exp.description}</p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Education Section */}
-        <div className="mb-20">
+        {/* Education */}
+        <section
+          id="education-section"
+          ref={(el) => { sectionRefs.current[2] = el; }}
+          className={`scroll-reveal mb-20 border-t border-gray-100/50 pt-16 ${isRevealed('education-section') ? 'visible' : ''}`}
+        >
           <div className="flex items-center gap-3 mb-8">
-            <div className="p-3 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl shadow-lg">
-              <GraduationCap className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center shadow-sm">
+              <GraduationCap className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-gray-800">Education</h2>
-              <p className="text-gray-500 mt-1">Academic background & achievements</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Pendidikan</h2>
+              <p className="text-gray-500 mt-1">Latar belakang akademik</p>
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             {education.map((edu, idx) => (
-              <div key={idx} className="relative group">
-                <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border-l-4 border-emerald-500">
-                  <div className="flex flex-wrap justify-between items-start gap-4">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-800 mb-1">{edu.degree}</h3>
-                      {edu.field && <p className="text-emerald-600 font-medium mb-2">{edu.field}</p>}
-                      <p className="text-gray-700 font-medium">{edu.institution}</p>
-                      <div className="flex flex-wrap gap-4 text-sm text-gray-500 mt-2">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          <span>{edu.period}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          <span>{edu.location}</span>
-                        </div>
-                      </div>
+              <div key={idx} className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-5 border-l-4 border-emerald-500 border border-gray-100"
+                style={{ transitionDelay: `${idx * 0.1}s` }}>
+                <div className="flex flex-wrap justify-between items-start gap-4">
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-800 mb-1 text-lg">{edu.degree}</h3>
+                    {edu.field && <p className="text-emerald-600 font-medium mb-2">{edu.field}</p>}
+                    <p className="text-gray-700 font-medium">{edu.institution}</p>
+                    <div className="flex flex-wrap gap-4 text-gray-500 mt-2">
+                      <span className="flex items-center gap-1"><Calendar className="w-4 h-4" />{edu.period}</span>
+                      <span className="flex items-center gap-1"><MapPin className="w-4 h-4" />{edu.location}</span>
                     </div>
-                    <div className="bg-emerald-100 px-4 py-2 rounded-full">
-                      <span className="text-emerald-700 font-bold">GPA: {edu.gpa}</span>
-                    </div>
+                  </div>
+                  <div className="bg-emerald-50 px-3 py-1.5 rounded-full">
+                    <span className="text-emerald-700 font-bold">GPA: {edu.gpa}</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Tech Stack with Modern Design */}
-        <div className="mb-20">
+        {/* Tech Stack */}
+        <section
+          id="tech-section"
+          ref={(el) => { sectionRefs.current[3] = el; }}
+          className={`scroll-reveal mb-20 border-t border-gray-100/50 pt-16 ${isRevealed('tech-section') ? 'visible' : ''}`}
+        >
           <div className="flex items-center gap-3 mb-8">
-            <div className="p-3 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl shadow-lg">
-              <Code className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center shadow-sm">
+              <Code className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-gray-800">Tech Stack</h2>
-              <p className="text-gray-500 mt-1">Technologies I work with</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Tech Stack</h2>
+              <p className="text-gray-500 mt-1">Teknologi yang saya gunakan</p>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div>
-                <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                  <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                  Frontend
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {skills.filter(s => s.category === 'frontend').map((skill) => (
-                    <span
-                      key={skill.name}
-                      className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 hover:scale-105 transition-all cursor-default"
-                    >
-                      {skill.name}
-                    </span>
-                  ))}
+          <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {[
+                { title: 'Frontend', cat: 'frontend', color: 'blue' },
+                { title: 'Backend', cat: 'backend', color: 'emerald' },
+                { title: 'Security', cat: 'security', color: 'purple' },
+                { title: 'Tools & DevOps', cat: 'tools', color: 'amber' },
+              ].map((group) => (
+                <div key={group.cat}>
+                  <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                    <div className={`w-2 h-2 bg-${group.color}-500 rounded-full`} />
+                    {group.title}
+                  </h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {skills.filter(s => s.category === group.cat).map((skill) => (
+                      <span
+                        key={skill.name}
+                        className={`px-2.5 py-1 bg-${group.color}-50 text-${group.color}-700 rounded-lg text-sm font-medium hover:scale-105 transition-transform cursor-default`}
+                      >
+                        {skill.name}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  Backend
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {skills.filter(s => s.category === 'backend').map((skill) => (
-                    <span
-                      key={skill.name}
-                      className="px-3 py-1.5 bg-green-50 text-green-700 rounded-lg text-sm font-medium hover:bg-green-100 hover:scale-105 transition-all cursor-default"
-                    >
-                      {skill.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                  <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-                  Security
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {skills.filter(s => s.category === 'security').map((skill) => (
-                    <span
-                      key={skill.name}
-                      className="px-3 py-1.5 bg-purple-50 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-100 hover:scale-105 transition-all cursor-default"
-                    >
-                      {skill.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                  <div className="w-3 h-3 bg-orange-500 rounded-full animate-pulse"></div>
-                  Tools & DevOps
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {skills.filter(s => s.category === 'tools').map((skill) => (
-                    <span
-                      key={skill.name}
-                      className="px-3 py-1.5 bg-orange-50 text-orange-700 rounded-lg text-sm font-medium hover:bg-orange-100 hover:scale-105 transition-all cursor-default"
-                    >
-                      {skill.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Social Impact Mission - Featured */}
-        <div className="mb-20">
+        {/* My Mission */}
+        <section
+          id="mission-section"
+          ref={(el) => { sectionRefs.current[4] = el; }}
+          className={`scroll-reveal mb-20 border-t border-gray-100/50 pt-16 ${isRevealed('mission-section') ? 'visible' : ''}`}
+        >
           <div className="flex items-center gap-3 mb-8">
-            <div className="p-3 bg-gradient-to-br from-red-500 to-orange-500 rounded-xl shadow-lg">
-              <Target className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 flex items-center justify-center shadow-sm">
+              <Target className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-gray-800">My Mission</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Misi Saya</h2>
               <p className="text-gray-500 mt-1">Beyond code, creating impact</p>
             </div>
           </div>
 
-          <div className="relative overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-amber-50 rounded-2xl shadow-lg p-8 md:p-10 border border-red-100">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-red-200 to-orange-200 rounded-full blur-3xl opacity-30"></div>
-            <div className="relative z-10">
-              <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Heart className="w-8 h-8 text-red-600" />
-                </div>
-                <div>
-                  <p className="text-gray-700 leading-relaxed text-lg mb-4">
-                    Beyond coding and security, my biggest dream is to create a reading house in my village 
-                    and provide scholarships for children who deserve a chance. I believe that education 
-                    is the most powerful tool to change lives, and I want to be part of that change.
-                  </p>
-                  <p className="text-gray-700 leading-relaxed text-lg font-medium">
-                    Because in the end, the most meaningful code isn't just about functionality—
-                    it's about creating space for real connection and opening doors for others.
-                  </p>
-                </div>
+          <div className="relative overflow-hidden bg-gradient-to-br from-rose-50/50 via-pink-50/30 to-purple-50/50 rounded-2xl shadow-md p-6 md:p-8 border border-rose-100">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-rose-200/50 to-pink-200/50 rounded-full blur-3xl"></div>
+            <div className="relative z-10 flex items-start gap-4">
+              <div className="w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Heart className="w-6 h-6 text-rose-600" />
+              </div>
+              <div>
+                <p className="text-gray-600 leading-relaxed mb-4">
+                  Beyond coding and security, impian terbesar saya adalah mendirikan rumah baca 
+                  di desa dan menyediakan beasiswa bagi anak-anak yang layak mendapat kesempatan. 
+                  Saya percaya bahwa pendidikan adalah alat paling powerful untuk mengubah hidup, 
+                  dan saya ingin menjadi bagian dari perubahan itu.
+                </p>
+                <p className="text-gray-700 leading-relaxed font-medium">
+                  Karena pada akhirnya, kode yang paling bermakna bukan hanya tentang fungsionalitas—
+                  melainkan tentang menciptakan ruang untuk koneksi nyata dan membuka pintu 
+                  bagi orang lain.
+                </p>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Fun Facts Stats */}
-        <div>
+        {/* Fun Facts */}
+        <section
+          id="facts-section"
+          ref={(el) => { sectionRefs.current[5] = el; }}
+          className={`scroll-reveal border-t border-gray-100/50 pt-16 ${isRevealed('facts-section') ? 'visible' : ''}`}
+        >
           <div className="flex items-center gap-3 mb-8">
-            <div className="p-3 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-xl shadow-lg">
-              <Award className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 flex items-center justify-center shadow-sm">
+              <Sparkles className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-gray-800">Something About Me</h2>
-              <p className="text-gray-500 mt-1">Quick facts & achievements</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Tentang Saya</h2>
+              <p className="text-gray-500 mt-1">Fakta singkat & pencapaian</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { icon: Clock, value: "5+", label: "Years of Experience", color: "blue" },
-              { icon: Users, value: "65+", label: "Students Mentored", color: "green" },
-              { icon: GraduationCap, value: "M.Eng", label: "Master's Degree", color: "purple" },
-              { icon: Shield, value: "Blue Team", label: "Security Expert", color: "red" },
-            ].map((stat, idx) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {funFacts.map((fact, idx) => (
               <div
                 key={idx}
-                className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 text-center transform hover:-translate-y-2"
+                className="group bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-5 text-center hover:-translate-y-1 border border-gray-100"
+                style={{ transitionDelay: `${idx * 0.1}s` }}
               >
-                <div className={`w-16 h-16 bg-${stat.color}-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
-                  <stat.icon className={`w-8 h-8 text-${stat.color}-600`} />
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300"
+                  style={{ background: `${fact.color}10` }}>
+                  <fact.icon className="w-6 h-6" style={{ color: fact.color }} />
                 </div>
-                <p className="text-3xl font-bold text-gray-800 mb-1">{stat.value}</p>
-                <p className="text-sm text-gray-500">{stat.label}</p>
+                <p className="text-3xl font-bold text-gray-800 mb-1">{fact.value}</p>
+                <p className="text-sm text-gray-500">{fact.label}</p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* CTA to Experience Page */}
+        {/* CTA */}
         <div className="mt-16 text-center">
           <Link
             href="/experience"
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            className="group inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl text-sm font-medium hover:bg-gray-800 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
           >
-            View Complete Experience
-            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            Lihat Pengalaman Lengkap
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>
-
-      {/* Custom CSS for animations */}
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out;
-        }
-        .animate-slide-up {
-          animation: slide-up 0.8s ease-out;
-        }
-      `}</style>
     </div>
   );
 }

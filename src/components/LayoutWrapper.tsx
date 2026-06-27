@@ -10,11 +10,7 @@ export default function LayoutWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  
   const isAdminRoute = pathname?.startsWith('/admin');
-  
-  console.log('LayoutWrapper rendered, isAdminRoute:', isAdminRoute); // ← TAMBAHKAN INI
-  console.log('Current pathname:', pathname); // ← TAMBAHKAN INI
   
   return (
     <>

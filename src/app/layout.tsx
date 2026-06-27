@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import LayoutWrapper from '@/components/LayoutWrapper';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Fitria Damayanti | Software Engineer',
-  description: 'S2 IT UGM graduate. Passionate about software development, cybersecurity, and digital literacy.',
+  description: 'S2 IT UGM graduate.',
 };
 
 export default function RootLayout({
@@ -16,11 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
-      <body className={`${inter.className} h-full flex flex-col`}>
-        <LayoutWrapper>
-          {children}
-        </LayoutWrapper>
+    <html lang="en">
+      <body className={inter.className}>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

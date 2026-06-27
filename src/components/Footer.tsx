@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Heart, Mail, Sparkles, ArrowUp, Coffee } from 'lucide-react';
+import { Heart, Mail, Sparkles, ArrowUp, Coffee, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function Footer() {
@@ -10,7 +10,7 @@ export default function Footer() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300);
+      setShowScrollTop(window.scrollY > 400);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -21,27 +21,51 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white border-t border-gray-800">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+    <footer className="relative w-full bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 text-white border-t border-white/10 overflow-hidden">
+      
+      {/* Subtle background particles */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div className="absolute w-1 h-1 rounded-full bg-purple-300/50" style={{ left: '10%', top: '20%', animation: 'footerFloat 8s ease-in-out 0s infinite' }} />
+        <div className="absolute w-1.5 h-1.5 rounded-full bg-blue-300/50" style={{ left: '30%', top: '60%', animation: 'footerFloat 7s ease-in-out 2s infinite' }} />
+        <div className="absolute w-1 h-1 rounded-full bg-pink-300/40" style={{ left: '50%', top: '30%', animation: 'footerFloat 9s ease-in-out 4s infinite' }} />
+        <div className="absolute w-1.5 h-1.5 rounded-full bg-purple-300/40" style={{ left: '70%', top: '70%', animation: 'footerFloat 8s ease-in-out 1s infinite' }} />
+        <div className="absolute w-1 h-1 rounded-full bg-indigo-300/40" style={{ left: '85%', top: '15%', animation: 'footerFloat 10s ease-in-out 3s infinite' }} />
+        <div className="absolute w-1.5 h-1.5 rounded-full bg-emerald-300/30" style={{ left: '20%', top: '85%', animation: 'footerFloat 7s ease-in-out 5s infinite' }} />
+        <div className="absolute w-1 h-1 rounded-full bg-amber-300/30" style={{ left: '60%', top: '10%', animation: 'footerFloat 9s ease-in-out 2.5s infinite' }} />
+        <div className="absolute w-1 h-1 rounded-full bg-rose-300/30" style={{ left: '90%', top: '50%', animation: 'footerFloat 8s ease-in-out 6s infinite' }} />
+      </div>
+
+      <style jsx>{`
+        @keyframes footerFloat {
+          0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+          50% { transform: translate(15px, -20px) scale(1.5); opacity: 0.8; }
+        }
+      `}</style>
+
+      <div className="max-w-6xl mx-auto px-6 py-14 relative z-10">
+        
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+          
           {/* Brand Section */}
           <div className="col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="w-6 h-6 text-blue-400" />
-              <h3 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center shadow-lg">
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-white">
                 Fitria Damayanti
               </h3>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Building software, securing systems, and creating opportunities for the next generation.
+            <p className="text-purple-200/80 text-sm leading-relaxed mb-4">
+              Building software, securing systems, dan menciptakan peluang untuk generasi mendatang.
             </p>
-            <div className="flex gap-3 mt-4">
+            <div className="flex gap-2">
               <a
                 href="https://github.com/fitriadamayanti12"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-white/10 rounded-lg text-gray-300 hover:bg-gray-900 hover:text-white transition-all duration-300"
+                className="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl text-white/80 hover:bg-white hover:text-gray-900 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 border border-white/10"
                 aria-label="GitHub"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -49,10 +73,10 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.linkedin.com/in/fitria-damayanti-8a484b139/"
+                href="https://linkedin.com/in/fitria-damayanti"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-white/10 rounded-lg text-gray-300 hover:bg-blue-600 hover:text-white transition-all duration-300"
+                className="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl text-white/80 hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 border border-white/10"
                 aria-label="LinkedIn"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -61,7 +85,7 @@ export default function Footer() {
               </a>
               <a
                 href="mailto:fitria.damayanti.996@gmail.com"
-                className="p-2 bg-white/10 rounded-lg text-gray-300 hover:bg-red-500 hover:text-white transition-all duration-300"
+                className="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl text-white/80 hover:bg-red-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 border border-white/10"
                 aria-label="Email"
               >
                 <Mail className="w-4 h-4" />
@@ -71,15 +95,23 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {['Home', 'About', 'Experience', 'Projects', 'Blog', 'Contact'].map((item) => (
-                <li key={item}>
+            <h4 className="font-semibold text-white mb-5 text-sm tracking-wide">Jelajahi</h4>
+            <ul className="space-y-2.5">
+              {[
+                { label: 'Beranda', href: '/' },
+                { label: 'Tentang', href: '/about' },
+                { label: 'Pengalaman', href: '/experience' },
+                { label: 'Proyek', href: '/projects' },
+                { label: 'Blog', href: '/blog' },
+                { label: 'Kontak', href: '/contact' },
+              ].map((item) => (
+                <li key={item.label}>
                   <Link
-                    href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-                    className="text-gray-400 hover:text-blue-400 text-sm transition-colors duration-300"
+                    href={item.href}
+                    className="text-purple-200/70 hover:text-white text-sm transition-all duration-300 flex items-center gap-1 group"
                   >
-                    {item}
+                    <ChevronRight className="w-3 h-3 opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -88,21 +120,26 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Resources</h4>
-            <ul className="space-y-2">
+            <h4 className="font-semibold text-white mb-5 text-sm tracking-wide">Sumber Daya</h4>
+            <ul className="space-y-2.5">
               <li>
-                <a href="https://github.com/fitriadamayanti12" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 text-sm transition-colors duration-300">
+                <a href="https://github.com/fitriadamayanti12" target="_blank" rel="noopener noreferrer" className="text-purple-200/70 hover:text-white text-sm transition-colors duration-300">
                   GitHub Repositories
                 </a>
               </li>
               <li>
-                <Link href="/blog" className="text-gray-400 hover:text-blue-400 text-sm transition-colors duration-300">
-                  Blog Articles
+                <Link href="/blog" className="text-purple-200/70 hover:text-white text-sm transition-colors duration-300">
+                  Artikel Blog
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-400 hover:text-blue-400 text-sm transition-colors duration-300">
-                  Contact Me
+                <Link href="/projects" className="text-purple-200/70 hover:text-white text-sm transition-colors duration-300">
+                  Portfolio Proyek
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-purple-200/70 hover:text-white text-sm transition-colors duration-300">
+                  Hubungi Saya
                 </Link>
               </li>
             </ul>
@@ -110,39 +147,52 @@ export default function Footer() {
 
           {/* Connect */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Let's Connect</h4>
-            <p className="text-gray-400 text-sm mb-3">
-              Have a project in mind or want to collaborate?
+            <h4 className="font-semibold text-white mb-5 text-sm tracking-wide">Mari Terhubung</h4>
+            <p className="text-purple-200/70 text-sm mb-5 leading-relaxed">
+              Punya proyek, ide kolaborasi, atau ingin berdiskusi?
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-medium hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg text-sm"
+              className="group inline-flex items-center gap-2 px-5 py-3 bg-white/10 backdrop-blur-sm border border-white/10 text-white rounded-xl text-sm font-medium hover:bg-white/20 hover:border-white/20 transition-all duration-300"
             >
-              Get in Touch
-              <Mail className="w-3 h-3" />
+              <span>Mulai Percakapan</span>
+              <ArrowUp className="w-3.5 h-3.5 rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </Link>
           </div>
         </div>
 
         {/* Divider */}
-        <div className="border-t border-gray-800 my-6"></div>
+        <div className="relative my-8">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-white/10"></div>
+          </div>
+          <div className="relative flex justify-center">
+            <div className="px-4 bg-gradient-to-r from-indigo-900 via-purple-900 to-blue-900">
+              <Heart className="w-4 h-4 text-pink-400 animate-pulse" />
+            </div>
+          </div>
+        </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-500">
-            © {currentYear} Fitria Damayanti. Crafted with{' '}
-            <Heart className="w-3 h-3 text-red-400 inline-block" /> for better impact
+        <div className="flex flex-col md:flex-row justify-between items-center gap-5">
+          <p className="text-sm text-purple-200/60">
+            © {currentYear} Fitria Damayanti. Dibuat dengan{' '}
+            <Heart className="w-3.5 h-3.5 text-pink-400 inline-block animate-pulse" /> untuk dampak yang lebih baik
           </p>
-          <div className="flex items-center gap-2">
-            <Coffee className="w-4 h-4 text-gray-500" />
-            <p className="text-xs text-gray-500 text-center">
-              Choosing family over career is not a step back — it's a foundation.
+          
+          <div className="flex items-center gap-2 text-purple-200/60 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-white/5">
+            <Coffee className="w-4 h-4" />
+            <p className="text-xs">
+              Memilih keluarga bukanlah langkah mundur — melainkan fondasi.
             </p>
           </div>
-          <div className="flex gap-2">
-            <span className="text-xs px-2 py-1 bg-white/5 rounded-full text-gray-400">Next.js</span>
-            <span className="text-xs px-2 py-1 bg-white/5 rounded-full text-gray-400">TypeScript</span>
-            <span className="text-xs px-2 py-1 bg-white/5 rounded-full text-gray-400">Tailwind</span>
+          
+          <div className="flex gap-1.5">
+            {['Next.js', 'TypeScript', 'Tailwind'].map((tech) => (
+              <span key={tech} className="text-[10px] px-2.5 py-1 bg-white/5 backdrop-blur-sm rounded-full text-purple-200/60 hover:text-white hover:bg-white/10 transition-all duration-300 cursor-default border border-white/5">
+                {tech}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -150,12 +200,12 @@ export default function Footer() {
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 z-50 p-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 ${
-          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+        className={`fixed bottom-6 right-6 z-50 p-3 bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-full shadow-lg hover:shadow-xl hover:bg-white/20 hover:scale-110 transition-all duration-300 ${
+          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
-        aria-label="Scroll to top"
+        aria-label="Kembali ke atas"
       >
-        <ArrowUp className="w-5 h-5" />
+        <ArrowUp className="w-4 h-4" />
       </button>
     </footer>
   );
